@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body{
+    overflow: hidden ;
+}
+
+h1 {
+    font-size: 4rem;
+    color: #fff;
+    position: absolute;
+    top: 100px;
+    font-family: 'Roboto', sans-serif;
+}
+
+#player1Score {
+    left: 35%;
+}
+
+#player2Score {
+    right: 35%;
+}
