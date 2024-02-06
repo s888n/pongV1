@@ -81,15 +81,11 @@ const paddle1 = new Paddle(new Vec2(20, canvas.height / 2 - 80), new Vec2(15, 15
 const paddle2 = new Paddle(new Vec2(canvas.width - 40, canvas.height / 2 - 80), new Vec2(15, 15), 20, 160, "#0000ff");
 function ballCollisionWithEdges(ball) {
 
-    // let nextX = ball.position.x + ball.radius;
     let nextY = ball.position.y + ball.radius;
 
     if (nextY >= canvas.height || nextY <= 0) {
         ball.velocity.y *= -1;
     }
-    // if (nextX >= canvas.width || nextX <= 0) {
-    //     ball.velocity.x *= -1;
-    // }
 }
 
 function paddleCollisionWithEdges(paddle) {
@@ -107,23 +103,42 @@ function ballPaddleCollision(ball, paddle) {
         ball.velocity.x *= -1;
     }
 }
+// function playerAI(ball, paddle) {
+//     if (ball.velocity.x > 0) {
+//         if (ball.position.y > paddle.position.y) {
+//             paddle.position.y += paddle.velocity.y;
+//             if (paddle.position.y + paddle.height > canvas.height) {
+//                 paddle.position.y = canvas.height - paddle.height;
+//             }
+//         }
+//         if (ball.position.y < paddle.position.y) {
+//             paddle.position.y -= paddle.velocity.y;
+//             if (paddle.position.y <= 0) {
+//                 paddle.position.y = 0;
+//             }
+//         }
+//     }
+// }
+
 function playerAI(ball, paddle) {
-    if (ball.velocity.x > 0) {
+    if (ball.velocity.x > 0 && ball.position.x > canvas.width / 2) {
+        
+        const randomOffset = Math.random() * 50 - 25;
+
         if (ball.position.y > paddle.position.y) {
-            paddle.position.y += paddle.velocity.y;
+            paddle.position.y += paddle.velocity.y + randomOffset;
             if (paddle.position.y + paddle.height > canvas.height) {
                 paddle.position.y = canvas.height - paddle.height;
             }
         }
         if (ball.position.y < paddle.position.y) {
-            paddle.position.y -= paddle.velocity.y;
+            paddle.position.y -= paddle.velocity.y + randomOffset;
             if (paddle.position.y <= 0) {
                 paddle.position.y = 0;
             }
         }
     }
 }
-
 function resetGame(ball, paddle1, paddle2) {
     ball.position.x = canvas.width / 2;
     ball.position.y = canvas.height / 2;
